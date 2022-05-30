@@ -13,7 +13,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -29,21 +31,6 @@ public class CSVFileService implements ICSVFileService {
      * @throws IOException
      */
     @Override
-//    public String echo(MultipartFile file) throws IOException {
-//        String line = "";
-//
-//        StringBuilder finalMatrixString = new StringBuilder();
-//
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-//            while ((line = br.readLine()) != null)   //returns a Boolean value
-//            {
-//                finalMatrixString.append(line);
-//                finalMatrixString.append("\n");
-//            }
-//        }
-//
-//        return finalMatrixString.toString().trim();
-//    }
     public String echo(MultipartFile file) throws IOException {
         //builds the CSV Parser object with properties
         CSVParser csvParser = new CSVParserBuilder()
@@ -77,33 +64,6 @@ public class CSVFileService implements ICSVFileService {
      */
     @Override
     public String invert(MultipartFile file) throws IOException {
-//        Collection<String[]> lines = new ArrayList<>();
-//
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-//            for (String line = br.readLine(); line != null; line = br.readLine()) {
-//                lines.add(line.split(","));
-//            }
-//        }
-//
-//        String[][] originalArray = lines.toArray(new String[lines.size()][]);
-//
-//        int length = originalArray.length;
-//
-//        String[][] invertedArray = new String[length][length];
-//
-//        transpose(originalArray, invertedArray);
-//
-//        StringBuilder invertedMatrix = new StringBuilder();
-//        for (int a = 0; a < length; a++) {
-//            for (int b = 0; b < length; b++) {
-//                invertedMatrix.append(invertedArray[a][b]);
-//                invertedMatrix.append(",");
-//            }
-//            invertedMatrix.deleteCharAt(invertedMatrix.length() - 1);
-//            invertedMatrix.append("\n");
-//        }
-//
-//        return invertedMatrix.toString().trim();
 
         //builds the CSV Parser object with properties
         List<String[]> matrixList;
@@ -154,20 +114,6 @@ public class CSVFileService implements ICSVFileService {
      */
     @Override
     public String flatten(MultipartFile file) throws IOException {
-//        String line = "";
-//        StringBuilder finalMatrixString = new StringBuilder();
-//
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-//            while ((line = br.readLine()) != null)   //returns a Boolean value
-//            {
-//                finalMatrixString.append(line);
-//                finalMatrixString.append(",");
-//            }
-//            finalMatrixString.deleteCharAt(finalMatrixString.length() - 1);
-//        }
-//
-//        return finalMatrixString.toString().trim();
-
         //builds the CSV Parser object with relevant properties
         CSVParser csvParser = new CSVParserBuilder()
                 .withSeparator(CSVUtil.csvDelimiter.charAt(0))
@@ -199,28 +145,7 @@ public class CSVFileService implements ICSVFileService {
      */
     @Override
     public Integer sum(MultipartFile file) throws IOException {
-//        Collection<String[]> lines = new ArrayList<>();
-//
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-//            for (String line = br.readLine(); line != null; line = br.readLine()) {
-//                lines.add(line.split(","));
-//            }
-//        }
-//        String[][] matrixArray = lines.toArray(new String[lines.size()][]);
-//
-//        int[][] intArray = convertStringArrayToIntArray(matrixArray);
-//
-//        int add = 0;
-//
-//        for (int[] array : intArray) {
-//            for (int a : array) {
-//                add += a;
-//            }
-//        }
-//
-//        return add;
-
-        //Builder to set up the CSV Parser object with relevant properties
+        //builds the CSV Parser object with relevant properties
         CSVParser csvParser = new CSVParserBuilder()
                 .withSeparator(CSVUtil.csvDelimiter.charAt(0))
                 .withIgnoreLeadingWhiteSpace(true)
@@ -273,26 +198,4 @@ public class CSVFileService implements ICSVFileService {
             throw new RuntimeException(e);
         }
     }
-
-    private void transpose(String[][] A, String[][] B) {
-        int N = A.length;
-        int i, j;
-        for (i = 0; i < N; i++) {
-            for (j = 0; j < N; j++) {
-                B[i][j] = A[j][i];
-            }
-        }
-    }
-
-    private int[][] convertStringArrayToIntArray(String[][] stringArray) {
-        int[][] intArray = new int[stringArray.length][];
-        for (int row = 0; row < stringArray.length; row++) {
-            intArray[row] = new int[stringArray[row].length];
-            for (int col = 0; col < stringArray[row].length; col++) {
-                intArray[row][col] = Integer.parseInt(stringArray[row][col]);
-            }
-        }
-        return intArray;
-    }
-
 }

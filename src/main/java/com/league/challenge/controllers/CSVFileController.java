@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @SpringBootApplication
@@ -68,25 +69,39 @@ public class CSVFileController {
      * @return Returns the sum of the integers in the matrix
      * @throws IOException
      */
-    @GetMapping("/sum")
+    @PostMapping("/sum")
     @ResponseStatus(HttpStatus.OK)
     public Integer getSum(@RequestParam("file") MultipartFile file) throws IOException {
         CSVValidator.validateCSVFile(file);
         return csvFileService.sum(file);
-
     }
 
     /**
-     * Exposes (http://localhost:8080/sum) endpoint with HTTP POST method
+     * Exposes (http://localhost:8080/multiply) endpoint with HTTP POST method
      *
      * @param file Multipart File
      * @return Returns the product of the integers in the matrix
      * @throws IOException
      */
-    @GetMapping("/multiply")
+    @PostMapping("/multiply")
+    @ResponseStatus(HttpStatus.OK)
     public Integer getProduct(@RequestParam("file") MultipartFile file) throws IOException {
         CSVValidator.validateCSVFile(file);
         return csvFileService.multiply(file);
+    }
+
+    /**
+     * Controller class exception handler
+     * Handles exceptions thrown by request mapping methods
+     * @param exception Exception
+     * @param response HttpServletResponse
+     * @return String
+     */
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String errorHandler(Exception exception, HttpServletResponse response){
+        return exception.getMessage();
     }
 
 }
