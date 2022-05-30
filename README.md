@@ -4,13 +4,13 @@ The web application is written in Java - SpringBoot and built with Maven.
 
 ### Run the SpringBoot Application
 ##### _Step 1_
-Download the project file or clone from GitHub
+Download the project or clone from GitHub [here](https://github.com/bukolabisuga/csv-file-service.git)
 
 ##### _Step 2_
 Install intelliJ on your PC and open the project folder.
 
 ##### _Step 3_
-Select and run the RunCSVApplication to start up the app locally and execute the endpoints in Postman using this collection - [https://www.getpostman.com/collections/611069a292e1a285e6fb]
+Select and run the RunCSVApplication to start up the app locally and execute the endpoints in Postman using this collection - https://www.getpostman.com/collections/611069a292e1a285e6fb
 
 ### API Endpoints
 Given an uploaded csv file
